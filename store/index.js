@@ -23,6 +23,7 @@ const createStore = () => {
             nuxtServerInit(vuexContext, context) {
                 let cookie = context.req.header.cookie.split(";").find(c => c.trim().startsWith("redirect="))
                 cookie = cookie.split("=")[1]
+                console.log(cookie)
 
                 return context.app.$axios.get(process.env.baseURL + "posts.json")
                     .then(response => {
