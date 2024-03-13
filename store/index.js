@@ -1,5 +1,6 @@
 import Vuex from "vuex";
 import axios from "axios";
+import Cookie from "js-cookie"
 
 const createStore = () => {
     return new Vuex.Store({
@@ -20,6 +21,9 @@ const createStore = () => {
         },
         actions: {
             nuxtServerInit(vuexContext, context) {
+                let cookie = context.req.header.cookie.split(";").find(c => c.trim().startsWith("redirect="))
+                cookie = cookie.split("=")[1]
+
                 return context.app.$axios.get(process.env.baseURL + "posts.json")
                     .then(response => {
                         let data = response.data;

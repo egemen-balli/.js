@@ -60,7 +60,7 @@ export default {
         localStorage.removeItem("authKey")
       },
       setCookie(){
-        Cookie.set("authKey", this.cookieValue)
+        Cookie.set("redirect", this.cookieValue)
       },
       getCookie(){
         this.fromCookie = Cookie.get("authKey")
