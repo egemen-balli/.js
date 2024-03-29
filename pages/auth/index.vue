@@ -27,10 +27,12 @@
         </form>
       </div>
     </div>
+    <nuxt-link to="/" tag="a">Homepage</nuxt-link>
   </div>
 </template>
 <script>
 export default {
+  // middleware: "auth",
   data() {
     return {
       user: {

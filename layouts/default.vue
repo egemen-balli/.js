@@ -4,9 +4,9 @@
       <Banner />
       <nuxt/>
     </div>
-  </template>
+  </template>    
   <script>
   export default {
-    
+    middleware: ["auth", "session-control"]
   }
 </script>

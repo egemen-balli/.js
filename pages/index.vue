@@ -30,6 +30,8 @@
                     </div>
                 </div>
             </div>
+
+            <nuxt-link to="/auth" tag="a">Login Form</nuxt-link>
         </div>
 
         <PostList :posts="fetchedPosts" />
@@ -41,6 +43,7 @@ import Cookie from "js-cookie"
 import PostList from "@/components/post/PostList"
 import About from "@/components/home/About"
 export default {
+    // middleware: "auth",
     data() {
       return {
         storageValue : null,
@@ -60,10 +63,12 @@ export default {
         localStorage.removeItem("authKey")
       },
       setCookie(){
-        Cookie.set("redirect", this.cookieValue)
+        // Cookie.set("redirect", this.cookieValue)
+        this.$store.commit("setAuthKey", this.cookieValue)
       },
       getCookie(){
-        this.fromCookie = Cookie.get("authKey")
+        // this.fromCookie = Cookie.get("authKey")
+        this.fromCookie = this.$store.getters.getAuthKey
       },
       deleteCookie(){
         Cookie.remove("authKey")

@@ -5,9 +5,19 @@ import Cookie from "js-cookie"
 const createStore = () => {
     return new Vuex.Store({
         state: {
+            authKey : null,
             fetchedPosts: []
         },
         mutations: {
+            setAuthKey(state, authKey){
+                Cookie.set("authKey", authKey)
+                state.authKey = authKey
+            },
+            clearAuthKey(state) {
+                Cookie.remove("authKey")
+                
+                state.authKey = null
+            },
             setPosts(state, posts) {
                 state.fetchedPosts = posts
             },
@@ -21,7 +31,8 @@ const createStore = () => {
         },
         actions: {
             nuxtServerInit(vuexContext, context) {
-                let cookie = context.req.header.cookie.split(";").find(c => c.trim().startsWith("redirect="))
+                
+                let cookie = context.req.headers.cookie.split(";").find(c => c.trim().startsWith("redirect="))
                 cookie = cookie.split("=")[1]
                 console.log(cookie)
 
@@ -53,6 +64,12 @@ const createStore = () => {
             }
         },
         getters: {
+            isAuthenticated(state) {
+                return state.authKey != null
+            },
+            getAuthKey(state) {
+                return state.authKey
+            },
             getPosts(state) {
                 return state.fetchedPosts
             }
