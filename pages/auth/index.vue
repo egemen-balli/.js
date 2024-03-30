@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   // middleware: "auth",
   data() {
@@ -44,7 +45,18 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.user)
+
+      let authLink = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key="
+      if(this.isUser){
+        authLink = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key="
+      }
+
+      axios.post(authLink + process.env.firebaseAPIKEY,
+      { email : this.user.email, password : this.user.password, returnSecureToken : true})
+      .then(response => {
+        this.$store.dispatch("login", response.data.idToken)
+        this.$router.push("/")
+      })
     }
   }
 }

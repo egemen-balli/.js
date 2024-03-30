@@ -13,10 +13,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <nuxt-link
+          active-class="active"
           to="/posts"
           tag="li"
           class="nav-item">
           <a class="nav-link" href="#">Yazılar</a>
+        </nuxt-link>
+        <nuxt-link active-class="active" to="/about" class="nav-item" tag="li">
+          <a class="nav-link" href="#">Hakkımda</a>
         </nuxt-link>
       </ul>
       <ul class="navbar-nav my-2 my-lg-0">
@@ -26,6 +30,9 @@
           class="nav-item mr-sm-2">
           <a class="nav-link" href="#">Admin</a>
         </nuxt-link>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Çıkış Yap</a>
+        </li>
       </ul>
     </div>
   </nav>

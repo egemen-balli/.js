@@ -48,7 +48,8 @@ module.exports = {
   //dev : false,
 
   env: {
-    baseURL: "https://kose-yazilari-8d072-default-rtdb.firebaseio.com/"
+    baseURL: "https://kose-yazilari-8d072-default-rtdb.firebaseio.com/",
+    firebaseAPIKEY: "AIzaSyCz-O_k2Yv1frU0W5_aoEUn9JQj2mnS8nM"
   },
 
   // generate : {},

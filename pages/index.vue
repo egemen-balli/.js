@@ -30,8 +30,6 @@
                     </div>
                 </div>
             </div>
-
-            <nuxt-link to="/auth" tag="a">Login Form</nuxt-link>
         </div>
 
         <PostList :posts="fetchedPosts" />

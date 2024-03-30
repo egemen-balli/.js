@@ -1,3 +1,7 @@
 export default function(context){
-    console.log("Middleware | session-control")
+    if(process.client){
+        context.store.dispatch("initAuth")
+    } else {
+        context.store.dispatch("initAuth", context.req)
+    }
 }

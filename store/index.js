@@ -10,7 +10,6 @@ const createStore = () => {
         },
         mutations: {
             setAuthKey(state, authKey){
-                Cookie.set("authKey", authKey)
                 state.authKey = authKey
             },
             clearAuthKey(state) {
@@ -31,11 +30,6 @@ const createStore = () => {
         },
         actions: {
             nuxtServerInit(vuexContext, context) {
-                
-                let cookie = context.req.headers.cookie.split(";").find(c => c.trim().startsWith("redirect="))
-                cookie = cookie.split("=")[1]
-                console.log(cookie)
-
                 return context.app.$axios.get(process.env.baseURL + "posts.json")
                     .then(response => {
                         let data = response.data;
@@ -45,6 +39,33 @@ const createStore = () => {
                         }
                         vuexContext.commit("setPosts", postArray)
                     })
+            },
+            initAuth(vuexContext, authKey) {
+                let token
+                if(req){
+                    // Working on server
+                    if(!req.headers.cookie){
+                        return
+                    }
+
+                    // Token from cookie
+                    token = req.headers.cookie.split(";").find(c => c.trim().startsWith("authKey="))
+                    if(token){
+                        token = cookie.split("=")[1]
+                    }
+                }else{
+                    // Working on client
+                    token = localStorage.getItem("authKey")
+                    if(!token){
+                        return
+                    }
+                }
+                vuexContext.commit("setAuthKey", token)
+            },
+            login(vuexContext, authKey){
+                Cookie.set("authKey", authKey)
+                localStorage.setItem("authKey", authKey)
+                vuexContext.commit("setAuthKey", authKey)
             },
             setPosts(vuexContext, posts) {
                 vuexContext.commit("setPosts", posts)
